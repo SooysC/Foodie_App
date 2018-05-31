@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a list of mainPageRecipes
         ArrayList<MainPageRecipe> mainPageRecipes = new ArrayList<MainPageRecipe>();
-        mainPageRecipes.add(new MainPageRecipe("Recipe One", "1", R.drawable.number_one));
+        mainPageRecipes.add(new MainPageRecipe("Recipe One", "1", R.drawable.androidparty));
         mainPageRecipes.add(new MainPageRecipe("Recipe Two", "2", R.drawable.number_two));
         mainPageRecipes.add(new MainPageRecipe("Recipe Three", "3", R.drawable.number_three));
         mainPageRecipes.add(new MainPageRecipe("Recipe Four", "4", R.drawable.number_four));
