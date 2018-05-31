@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp">
+
+    <LinearLayout
+        android:id="@+id/fridge_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        tools:context=".FridgeActivity">
+
+        <ImageView
+            android:id="@+id/ingredient_image"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_gravity="left|center_vertical" />
+
+        <TextView
+            android:id="@+id/ingredient"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            tools:text="hi" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:layout_weight="2"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/quantity_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/quantity_border"
+                android:digits="0,1,2,3,4,5,6,7,8,9"
+                android:inputType="textMultiLine|number"
+                android:padding="23dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="10dp"
+                android:text="0"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/quantity_lin_layout"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/increment_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/button_bg_round"
+                    android:text="+"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/decrement_button"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/button_bg_round"
+                    android:text="-"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dummy_text_view_side"
+            android:layout_width="16dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

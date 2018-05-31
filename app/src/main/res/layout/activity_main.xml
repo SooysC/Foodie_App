@@ -1,39 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!-- THIS IS TEMPORARY SO I CAN JUST TEST MY CODE FOR NOW -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-        <SearchView
-            android:id="@+id/search_bar"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:iconifiedByDefault="false"
-            android:queryHint="Search Recipes"></SearchView>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/filter"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="16dp"
-            android:text="Filters" />
+            <SearchView
+                android:id="@+id/search_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search Recipes"></SearchView>
+
+            <TextView
+                android:id="@+id/filter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="Filters" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/recipe_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/recipe_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
-</LinearLayout>
+    <!-- THIS IS TEMPORARY SO I CAN JUST TEST MY CODE FOR NOW -->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp" />
+
+</RelativeLayout>

@@ -1,7 +1,10 @@
 package com.example.team.foodie;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -35,5 +38,14 @@ public class MainActivity extends AppCompatActivity {
         // {@link ListView} will display list items for each word in the list of mainPageRecipes.
         listView.setAdapter(adapter);
 
+        // THIS IS TEMPORARY SO I CAN JUST TEST MY CODE FOR NOW
+        FloatingActionButton fabTemp = (FloatingActionButton) findViewById(R.id.fab_temp);
+        fabTemp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FridgeActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
