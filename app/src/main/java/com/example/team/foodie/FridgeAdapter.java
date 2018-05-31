@@ -1,6 +1,7 @@
 package com.example.team.foodie;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,15 +17,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.team.foodie.MainActivity;
 import com.example.team.foodie.R;
 
 import java.util.ArrayList;
 
-// TO DO: fix incrementing and decrementing functionality
-public class FridgeAdapter extends ArrayAdapter<String> {
-    private int quantity = 0;
+public class FridgeAdapter extends ArrayAdapter<FridgeItem> {
 
     public interface ICloseFABMenuCallback {
         void closeFABMenu(View view_screen);
@@ -32,8 +32,9 @@ public class FridgeAdapter extends ArrayAdapter<String> {
 
     private ICloseFABMenuCallback callerActivity;
     private View mRoot;
+    private Context mContext;
 
-    public FridgeAdapter(Activity context, ArrayList<String> items, View root) {
+    public FridgeAdapter(Activity context, ArrayList<FridgeItem> items, View root) {
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
         // Because this is a custom adapter for two TextViews and an ImageView, the adapter is not
@@ -41,6 +42,7 @@ public class FridgeAdapter extends ArrayAdapter<String> {
         super(context, 0, items);
         callerActivity = (ICloseFABMenuCallback) context;
         mRoot = root;
+        mContext = context;
     }
 
     @Override
@@ -111,10 +113,10 @@ public class FridgeAdapter extends ArrayAdapter<String> {
             }
         });
 
-        String currentWord = getItem(position);
+        final FridgeItem currentItem = getItem(position);
 
         TextView nameTextView = (TextView) listItemView.findViewById(R.id.ingredient);
-        nameTextView.setText(currentWord);
+        nameTextView.setText(currentItem.getName());
 
         Button incrementButton = (Button) listItemView.findViewById(R.id.increment_button);
         incrementButton.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +127,7 @@ public class FridgeAdapter extends ArrayAdapter<String> {
                     callerActivity.closeFABMenu(view_screen);
                     return;
                 }
-                increment(listItemViewCopy);
+                currentItem.incrementQuantity(listItemViewCopy);
             }
         });
 
@@ -138,36 +140,19 @@ public class FridgeAdapter extends ArrayAdapter<String> {
                     callerActivity.closeFABMenu(view_screen);
                     return;
                 }
-                decrement(listItemViewCopy);
+                if (currentItem.getQuantity() == 0) {
+                    CharSequence text = "You cannot have negative items :)";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(mContext, text, duration);
+                    toast.show();
+                    return;
+                }
+                currentItem.decrementQuantity(listItemViewCopy);
             }
         });
 
         // Return the whole list item layout
         // so that it can be shown in the ListView
         return listItemView;
-    }
-
-    /**
-     * This method is called when the plus button is clicked.
-     */
-    private void increment(View view) {
-        quantity = quantity + 1;
-        displayQuantity(quantity, view);
-    }
-
-    /**
-     * This method is called when the minus button is clicked.
-     */
-    private void decrement(View view) {
-        quantity = quantity - 1;
-        displayQuantity(quantity, view);
-    }
-
-    /**
-     * This method displays the given quantity value on the screen.
-     */
-    private void displayQuantity(int number, View view) {
-        TextView quantityTextView = (TextView) view.findViewById(R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
     }
 }

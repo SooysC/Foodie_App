@@ -91,15 +91,14 @@ public class FridgeActivity extends AppCompatActivity implements FridgeAdapter.I
             }
         });
 
-        // Create a list of items
-        final ArrayList<String> items = new ArrayList<>(); // final so you can use in on click
-        items.add("hi");
-        items.add("bye");
-        items.add("see you later aligator! see you later aligator!");
+        // Create a list of FridgeItems
+        final ArrayList<FridgeItem> items = new ArrayList<>(); // final so you can use in on click
+        items.add(new FridgeItem("hi"));
+        items.add(new FridgeItem("bye"));
+        items.add(new FridgeItem("see you later aligator! see you later aligator!"));
 
 
-        // Create an {@link FridgeAdapter}, whose data source is a list of {@link Items
-        // TO DO: (class to be made to fix counting up and down issue)}s. The
+        // Create an {@link FridgeAdapter}, whose data source is a list of {@link FridgeItem}s. The
         // adapter knows how to create list items for each item in the list.
         FridgeAdapter adapter = new FridgeAdapter(this, items, findViewById(R.id.root));
 
