@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         //--------------------main page-----------------------------------//
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -46,16 +45,6 @@ public class MainActivity extends AppCompatActivity {
         // {@link ListView} will display list items for each word in the list of mainPageRecipes.
         listView.setAdapter(adapter);
 
-        // THIS IS TEMPORARY SO I CAN JUST TEST MY CODE FOR NOW
-        FloatingActionButton fabTemp = (FloatingActionButton) findViewById(R.id.fab_temp);
-        fabTemp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FridgeActivity.class);
-                startActivity(intent);
-            }
-        });
-
         //-------------------------------nav bar ----------------------------------//
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -71,12 +60,27 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // set item as selected to persist highlight
-                        menuItem.setChecked(true);
+                        menuItem.setChecked(false);
                         // close drawer when item is tapped
                         mDrawerLayout.closeDrawers();
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
+                        Intent intent;
+                        switch(menuItem.getItemId()){
+                            case R.id.nav_home:
+                                //switch to home here
+                                break;
+                            case R.id.nav_my_fridge:
+                                intent = new Intent(MainActivity.this, FridgeActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.nav_groceries:
+                                //switch to home here
+                                break;
+                            case R.id.nav_settings:
+                                //switch to home here
+                                break;
+                            default: break;
+                        }
 
                         return true;
                     }

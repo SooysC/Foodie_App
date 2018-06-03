@@ -42,7 +42,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
                         android:iconifiedByDefault="false"
-                        android:queryHint="Search Recipes"></SearchView>
+                        android:queryHint="Search Recipes"/>
 
                     <TextView
                         android:id="@+id/filter"
@@ -51,25 +51,16 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="16dp"
-                        android:text="Filters" />
+                        android:text="Filters"/>
 
                 </LinearLayout>
 
                 <ListView
                     android:id="@+id/recipe_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></ListView>
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
-
-            <!-- THIS IS TEMPORARY SO I CAN JUST TEST MY CODE FOR NOW -->
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_temp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_margin="16dp" />
 
         </RelativeLayout>
 
