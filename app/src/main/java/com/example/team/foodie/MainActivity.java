@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -41,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id .recipe_list);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Make the {@link ListView} use the {@link ArrayAdapter} we created above, so that the
         // {@link ListView} will display list items for each word in the list of mainPageRecipes.
         listView.setAdapter(adapter);
@@ -50,10 +59,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
+
+        // this adds a button to the top tool bar to access the navigation drawer
+        // instead of just sliding from left
         actionbar.setDisplayHomeAsUpEnabled(true);
+
+        // this changes the button icon from a back icon to the navigation icon
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -82,10 +95,12 @@ public class MainActivity extends AppCompatActivity {
                             default: break;
                         }
 
+
                         return true;
                     }
                 });
 
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerLayout.addDrawerListener(
                 new DrawerLayout.DrawerListener() {
                     @Override
@@ -110,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
