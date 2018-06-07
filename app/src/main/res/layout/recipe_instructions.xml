@@ -2,13 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recipe_ingredients"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="2" >
+    android:layout_height="match_parent"
+    android:nestedScrollingEnabled="true">
 
     <TextView style="?android:textAppearanceMedium"
         android:padding="16dp"
         android:lineSpacingMultiplier="1.2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lots of information on ingredients" />
+        android:text="Lots of information on instructions
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa having a lot of info on how to cook is very very very good because it is necessary for the best results. Looking at pictures of food is also amazing, it inspires for normal every day people to come up with such amazing dishes. Our app's goal is helping people make food in a much simpler way by doing all the hard work of finding the appropriate recipes, storing the ingredients available, and also suggesting shopping items so that the user can focus on the making, not the finding. And this is a very long paragraph that I'm writing and it's quite boring for writing so much but it's also necessary to test if this scrolling works properly or not ugh so longlonglong ahahahaha wahahaha wowowowow im going craaaaaaaaazy wooohoooooo ok I hope this is all that is needed byebyee" />
 </ScrollView>

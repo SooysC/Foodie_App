@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Create a list of mainPageRecipes
-        ArrayList<MainPageRecipe> mainPageRecipes = new ArrayList<MainPageRecipe>();
+        final ArrayList<MainPageRecipe> mainPageRecipes = new ArrayList<MainPageRecipe>();
         mainPageRecipes.add(new MainPageRecipe("Recipe One", "1", R.drawable.smoothie));
         mainPageRecipes.add(new MainPageRecipe("Recipe Two", "2", R.drawable.avocadotoast));
         mainPageRecipes.add(new MainPageRecipe("Recipe Three", "3", R.drawable.eggsbenedict));
@@ -109,7 +110,26 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        //--------------------recipe page-----------------------------------//
+        // Set a click listener to go to specific recipe page when the list item is clicked on
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // Get the {@link MainPageRecipe} object at the given position the user clicked on
+                MainPageRecipe mainPageRecipe = mainPageRecipes.get(position);
+
+                // Create a new intent to open the {@link RecipeActivity}
+                Intent intent = new Intent(MainActivity.this, RecipeActivity.class);
+                // add data of which recipe was selected
+                //intent.put("recipe", position);
+
+                // Start new recipe Activity
+                startActivity(intent);
+            }
+        });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

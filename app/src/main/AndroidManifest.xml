@@ -17,12 +17,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".FridgeActivity">
-
+        <activity
+            android:name=".FridgeActivity">
         </activity>
 
-        <activity android:name=".FridgeItemActivity">
+        <activity
+            android:name=".FridgeItemActivity">
+        </activity>
 
+        <activity
+            android:name=".RecipeActivity">
         </activity>
 
         <meta-data

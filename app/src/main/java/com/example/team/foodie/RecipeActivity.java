@@ -1,9 +1,19 @@
 package com.example.team.foodie;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.View;
+import android.widget.ImageView;
+import android.support.v7.widget.Toolbar;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 public class RecipeActivity extends AppCompatActivity {
 
@@ -13,6 +23,7 @@ public class RecipeActivity extends AppCompatActivity {
 
         setContentView(R.layout.recipe);
 
+        //---------------------Tab------------------------------//
         // Find the view pager that will allow the user to swipe between fragments
         ViewPager viewPager = (ViewPager) findViewById(R.id.recipe_viewpager);
 
@@ -32,7 +43,32 @@ public class RecipeActivity extends AppCompatActivity {
         //      by calling onPageTitle()
         tabLayout.setupWithViewPager(viewPager);
 
+        //---------------------Scroll------------------------------//
+        Intent intent = getIntent();
 
+        final Toolbar toolbar = findViewById(R.id.recipe_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.recipe_collapsing_toolbar);
+        collapsingToolbar.setTitle("Sample 1");
+
+        loadBackdrop();
     }
+
+    private void loadBackdrop() {
+        //----------temp---------//
+        final ImageView imageView = findViewById(R.id.recipe_backdrop);
+        Glide.with(this).load(R.drawable.avocadotoast).apply(RequestOptions.centerCropTransform()).into(imageView);
+        //----------temp---------//
+
+        //final ImageView imageView = findViewById(R.id.recipe_backdrop);
+        //Glide.with(this).load(Recipes).getDrawable()).apply(RequestOptions.centerCropTransform()).into(imageView);
+    }
+
+    //@Override
+    //public boolean onCreateOptionsMenu(Menu menu) {
+    //    //getMenuInflater().inflate(R.menu.sample_actions, menu);
+    //    return true;
+    //}
 }
