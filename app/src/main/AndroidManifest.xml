@@ -29,6 +29,10 @@
             android:name=".RecipeActivity">
         </activity>
 
+        <activity android:name=".RecipeActivity">
+
+        </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
