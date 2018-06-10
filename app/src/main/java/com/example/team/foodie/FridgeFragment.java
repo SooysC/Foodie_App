@@ -22,6 +22,7 @@ public class FridgeFragment extends Fragment implements FridgeAdapter.ICloseFABM
     private FloatingActionButton fabNewItem, fabManualEntry, fabBarcodeEntry, fabImageEntry;
     private LinearLayout fabManualEntryLayout, fabBarcodeEntryLayout, fabImageEntryLayout;
     private TextView textManualEntry, textBarcodeEntry, textImageEntry;
+    private View rootView;
     private boolean isFABOpen = false;
     public static boolean pIsFABOpen = false;
 
@@ -34,6 +35,8 @@ public class FridgeFragment extends Fragment implements FridgeAdapter.ICloseFABM
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        rootView =  view.findViewById(R.id.root);
 
         textManualEntry = (TextView) view.findViewById(R.id.text_manual_entry);
         textManualEntry.setVisibility(View.GONE);
@@ -58,7 +61,7 @@ public class FridgeFragment extends Fragment implements FridgeAdapter.ICloseFABM
         fabNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                View view_screen = view.findViewById(R.id.shadowView);
+                View view_screen = rootView.findViewById(R.id.shadowView);
                 if (!isFABOpen) {
                     showFABMenu(view_screen);
                 } else {
@@ -101,7 +104,7 @@ public class FridgeFragment extends Fragment implements FridgeAdapter.ICloseFABM
 
         // Create an {@link FridgeAdapter}, whose data source is a list of {@link FridgeItem}s. The
         // adapter knows how to create list items for each item in the list.
-        FridgeAdapter adapter = new FridgeAdapter(getActivity(), items, view.findViewById(R.id.root));
+        FridgeAdapter adapter = new FridgeAdapter(getActivity(), items, rootView, this);
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
@@ -115,7 +118,7 @@ public class FridgeFragment extends Fragment implements FridgeAdapter.ICloseFABM
         listView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                View view_screen = view.findViewById(R.id.shadowView);
+                View view_screen = rootView.findViewById(R.id.shadowView);
                 if (isFABOpen) {
                     closeFABMenu(view_screen);
                 }
