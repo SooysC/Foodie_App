@@ -3,9 +3,6 @@ package com.example.team.foodie;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,13 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.team.foodie.MainActivity;
-import com.example.team.foodie.R;
 
 import java.util.ArrayList;
 
@@ -64,7 +57,7 @@ public class FridgeAdapter extends ArrayAdapter<FridgeItem> {
             @Override
             public void onClick(View v) {
                 View view_screen = mRoot.findViewById(R.id.shadowView);
-                if (FridgeActivity.pIsFABOpen) {
+                if (FridgeFragment.pIsFABOpen) {
                     callerActivity.closeFABMenu(view_screen);
                     return;
                 }
@@ -78,7 +71,7 @@ public class FridgeAdapter extends ArrayAdapter<FridgeItem> {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 View view_screen = mRoot.findViewById(R.id.shadowView);
-                if (FridgeActivity.pIsFABOpen) {
+                if (FridgeFragment.pIsFABOpen) {
                     callerActivity.closeFABMenu(view_screen);
                     return true;
                 }
@@ -92,7 +85,7 @@ public class FridgeAdapter extends ArrayAdapter<FridgeItem> {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 View view_screen = mRoot.findViewById(R.id.shadowView);
-                if (FridgeActivity.pIsFABOpen) {
+                if (FridgeFragment.pIsFABOpen) {
                     callerActivity.closeFABMenu(view_screen);
                     return true;
                 }
@@ -105,7 +98,7 @@ public class FridgeAdapter extends ArrayAdapter<FridgeItem> {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 View view_screen = mRoot.findViewById(R.id.shadowView);
-                if (FridgeActivity.pIsFABOpen) {
+                if (FridgeFragment.pIsFABOpen) {
                     callerActivity.closeFABMenu(view_screen);
                     return true;
                 }
@@ -123,7 +116,7 @@ public class FridgeAdapter extends ArrayAdapter<FridgeItem> {
             @Override
             public void onClick(View v) {
                 View view_screen = mRoot.findViewById(R.id.shadowView);
-                if (FridgeActivity.pIsFABOpen) {
+                if (FridgeFragment.pIsFABOpen) {
                     callerActivity.closeFABMenu(view_screen);
                     return;
                 }
@@ -136,7 +129,7 @@ public class FridgeAdapter extends ArrayAdapter<FridgeItem> {
             @Override
             public void onClick(View v) {
                 View view_screen = mRoot.findViewById(R.id.shadowView);
-                if (FridgeActivity.pIsFABOpen) {
+                if (FridgeFragment.pIsFABOpen) {
                     callerActivity.closeFABMenu(view_screen);
                     return;
                 }

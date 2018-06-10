@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:orientation="vertical"
-    tools:context="com.example.team.foodie.FridgeActivity">
+    tools:context="com.example.team.foodie.FridgeFragment">
 
     <ListView
         android:id="@+id/fridge_list"

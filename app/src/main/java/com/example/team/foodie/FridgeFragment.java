@@ -1,27 +1,23 @@
 package com.example.team.foodie;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.team.foodie.MainActivity;
-import com.example.team.foodie.R;
 
 import java.util.ArrayList;
 
-public class FridgeActivity extends AppCompatActivity implements FridgeAdapter.ICloseFABMenuCallback {
+public class FridgeFragment extends Fragment implements FridgeAdapter.ICloseFABMenuCallback {
 
     private FloatingActionButton fabNewItem, fabManualEntry, fabBarcodeEntry, fabImageEntry;
     private LinearLayout fabManualEntryLayout, fabBarcodeEntryLayout, fabImageEntryLayout;
@@ -29,35 +25,40 @@ public class FridgeActivity extends AppCompatActivity implements FridgeAdapter.I
     private boolean isFABOpen = false;
     public static boolean pIsFABOpen = false;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fridge);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_fridge, null);
+    }
 
-        textManualEntry = (TextView) findViewById(R.id.text_manual_entry);
+    @Override
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        textManualEntry = (TextView) view.findViewById(R.id.text_manual_entry);
         textManualEntry.setVisibility(View.GONE);
 
-        textBarcodeEntry = (TextView) findViewById(R.id.text_barcode_entry);
+        textBarcodeEntry = (TextView) view.findViewById(R.id.text_barcode_entry);
         textBarcodeEntry.setVisibility(View.GONE);
 
-        textImageEntry = (TextView) findViewById(R.id.text_image_entry);
+        textImageEntry = (TextView) view.findViewById(R.id.text_image_entry);
         textImageEntry.setVisibility(View.GONE);
 
-        fabNewItem = (FloatingActionButton) findViewById(R.id.fab_new_item);
+        fabNewItem = (FloatingActionButton) view.findViewById(R.id.fab_new_item);
 
-        fabManualEntryLayout = (LinearLayout) findViewById(R.id.fab_manual_entry_layout);
-        fabManualEntry = (FloatingActionButton) findViewById(R.id.fab_manual_entry);
+        fabManualEntryLayout = (LinearLayout) view.findViewById(R.id.fab_manual_entry_layout);
+        fabManualEntry = (FloatingActionButton) view.findViewById(R.id.fab_manual_entry);
 
-        fabBarcodeEntryLayout = (LinearLayout) findViewById(R.id.fab_barcode_entry_layout);
-        fabBarcodeEntry = (FloatingActionButton) findViewById(R.id.fab_barcode_entry);
+        fabBarcodeEntryLayout = (LinearLayout) view.findViewById(R.id.fab_barcode_entry_layout);
+        fabBarcodeEntry = (FloatingActionButton) view.findViewById(R.id.fab_barcode_entry);
 
-        fabImageEntryLayout = (LinearLayout) findViewById(R.id.fab_image_entry_layout);
-        fabImageEntry = (FloatingActionButton) findViewById(R.id.fab_image_entry);
+        fabImageEntryLayout = (LinearLayout) view.findViewById(R.id.fab_image_entry_layout);
+        fabImageEntry = (FloatingActionButton) view.findViewById(R.id.fab_image_entry);
 
         fabNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                View view_screen = findViewById(R.id.shadowView);
+                View view_screen = view.findViewById(R.id.shadowView);
                 if (!isFABOpen) {
                     showFABMenu(view_screen);
                 } else {
@@ -69,7 +70,7 @@ public class FridgeActivity extends AppCompatActivity implements FridgeAdapter.I
         fabManualEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FridgeActivity.this, FridgeItemActivity.class);
+                Intent intent = new Intent(getActivity(), FridgeItemActivity.class);
                 startActivity(intent);
             }
         });
@@ -77,7 +78,7 @@ public class FridgeActivity extends AppCompatActivity implements FridgeAdapter.I
         fabBarcodeEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FridgeActivity.this, FridgeItemActivity.class);
+                Intent intent = new Intent(getActivity(), FridgeItemActivity.class);
                 startActivity(intent);
             }
         });
@@ -86,7 +87,7 @@ public class FridgeActivity extends AppCompatActivity implements FridgeAdapter.I
         fabImageEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FridgeActivity.this, FridgeItemActivity.class);
+                Intent intent = new Intent(getActivity(), FridgeItemActivity.class);
                 startActivity(intent);
             }
         });
@@ -100,12 +101,12 @@ public class FridgeActivity extends AppCompatActivity implements FridgeAdapter.I
 
         // Create an {@link FridgeAdapter}, whose data source is a list of {@link FridgeItem}s. The
         // adapter knows how to create list items for each item in the list.
-        FridgeAdapter adapter = new FridgeAdapter(this, items, findViewById(R.id.root));
+        FridgeAdapter adapter = new FridgeAdapter(getActivity(), items, view.findViewById(R.id.root));
 
         // Find the {@link ListView} object in the view hierarchy of the {@link Activity}.
         // There should be a {@link ListView} with the view ID called list, which is declared in the
         // fridge_list.xml layout file.
-        ListView listView = (ListView) findViewById(R.id.fridge_list);
+        ListView listView = (ListView) view.findViewById(R.id.fridge_list);
 
         // Make the {@link ListView} use the {@link FridgeAdapter} we created above, so that the
         // {@link ListView} will display list items for each {@link Item} in the list.
@@ -114,7 +115,7 @@ public class FridgeActivity extends AppCompatActivity implements FridgeAdapter.I
         listView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                View view_screen = findViewById(R.id.shadowView);
+                View view_screen = view.findViewById(R.id.shadowView);
                 if (isFABOpen) {
                     closeFABMenu(view_screen);
                 }
@@ -132,15 +133,15 @@ public class FridgeActivity extends AppCompatActivity implements FridgeAdapter.I
         });*/
     }
 
-    @Override
+/*    @Override
     public void onBackPressed() {
         if(!isFABOpen){
             super.onBackPressed();
         }else{
-            View view_screen = findViewById(R.id.shadowView);
+            View view_screen = view.findViewById(R.id.shadowView);
             closeFABMenu(view_screen);
         }
-    }
+    }*/
 
     private void showFABMenu(View view_screen) {
         isFABOpen = true;
