@@ -11,6 +11,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -19,6 +22,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -38,7 +43,7 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
-        ft.replace(R.id.screen_area, fragment);
+        ft.replace(R.id.screen_area, fragment, Integer.toString(R.id.nav_home));
 
         ft.commit();
 
@@ -49,7 +54,12 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if (FridgeFragment.pIsFABOpen) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FridgeFragment fridgeFragment = (FridgeFragment) fragmentManager.findFragmentByTag(Integer.toString(R.id.nav_my_fridge));
+            fridgeFragment.closeFABMenu(findViewById(R.id.root).findViewById(R.id.shadowView));
+        }
+        else {
             super.onBackPressed();
         }
     }
@@ -74,11 +84,31 @@ public class MainActivity extends AppCompatActivity
         }
 
         //catch null cases if necessary
-        if(fragment != null){
+        if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
 
-            ft.replace(R.id.screen_area, fragment);
+            if (fragmentManager.getBackStackEntryCount() > 0) {
+                // only add current fragment to back stack if it was not recently added
+                // (avoiding multiple instances of same fragment in back stack)
+                String previousBackStackEntry = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName();
+                String currentBackStackEntry = Integer.toString(id);
+                if (!previousBackStackEntry.equals(currentBackStackEntry)) {
+                    ft.replace(R.id.screen_area, fragment, Integer.toString(id));
+                    // never add home/ main fragment to back stack because
+                    // once you are at home screen back should take you out of app
+                    // therefore clear entire back stack if you are at home
+                    if (id != R.id.nav_home) ft.addToBackStack(Integer.toString(id));
+                    else fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                }
+            } else {
+                ft.replace(R.id.screen_area, fragment, Integer.toString(id));
+                // never add home/ main fragment to back stack because
+                // once you are at home screen back should take you out of app
+                // therefore clear entire back stack if you are at home
+                if (id != R.id.nav_home) ft.addToBackStack(Integer.toString(id));
+                else fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
 
             ft.commit();
         }
