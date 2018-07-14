@@ -44,6 +44,26 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/filter_expand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    tools:visibility="invisible">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="great"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="nice"/>
+
+                </LinearLayout>
+
+
                 <ListView
                     android:id="@+id/recipe_list"
                     android:layout_width="match_parent"

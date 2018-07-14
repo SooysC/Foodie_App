@@ -8,12 +8,43 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class MainFragment extends Fragment{
+    //filter stuff
+    private boolean filterExpanded = false;
+    LinearLayout filterAnimation;
+    int mOriginalHeight;
+    boolean initialSizeObtained = false;
+
+    Animation _hideAnimation = new Animation() {
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) filterAnimation.getLayoutParams();
+            params.topMargin = -(int) (mOriginalHeight * interpolatedTime);
+            filterAnimation.setLayoutParams(params);
+            //filterAnimation.setVisibility(View.INVISIBLE);
+        }
+    };
+
+    Animation _showAnimation = new Animation() {
+        @Override
+        protected void applyTransformation(float interpolatedTime, Transformation t) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) filterAnimation.getLayoutParams();
+            params.topMargin = (int) (mOriginalHeight * (interpolatedTime - 1));
+            filterAnimation.setLayoutParams(params);
+            //filterAnimation.setVisibility(View.VISIBLE);
+        }
+    };
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,5 +104,39 @@ public class MainFragment extends Fragment{
             }
         });
 
+
+        //---------mainPage filter----------------//
+
+        filterAnimation = (LinearLayout) view.findViewById(R.id.filter_expand);
+        filterAnimation.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if(initialSizeObtained)
+                    return;
+                initialSizeObtained = true;
+                mOriginalHeight = filterAnimation.getMeasuredHeight();
+            }
+        });
+
+        _hideAnimation.setDuration(2000);
+        _showAnimation.setDuration(2000);
+
+        filterAnimation.setVisibility(View.INVISIBLE);
+
+        TextView filterView = view.findViewById(R.id.filter);
+        filterView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ToggleTopBar(view);
+            }
+        });
+    }
+
+    //for mainpage filter
+    public void ToggleTopBar(View view) {
+        filterExpanded = !filterExpanded;
+
+        filterAnimation.clearAnimation();
+        filterAnimation.startAnimation(filterExpanded? _showAnimation : _hideAnimation);
     }
 }
